@@ -5,7 +5,7 @@ requirejs.config({
     /***
      * The path where your JavaScripts files are located.
      */
-    baseUrl: './apps/',
+    baseUrl: '.',
 
     /***
      * Path config is also part of Require and allows to define paths for vendors
@@ -14,15 +14,12 @@ requirejs.config({
      */
     paths: {
         /*** List of frameworks/libraries to be included in the codebase. ***/
-        'jquery': '../systems/libs/jquery.min',
-        'json3': '../systems/libs/json3.min',
-        'text': '../systems/libs/text',
-        'routie': '../systems/libs/routie.min',
-        'text': '../systems/libs/text.min',
-        'handlebars': '../systems/libs/handlebars.min',
-        'swag': '../systems/libs/swag.min',
-        'template': '../systems/utilities/hd-template-mapper',
-        'templates': '../../templates'
+        'jquery': '../bower_components/jquery/jquery.min',
+        'signals': '../bower_components/js-signals/dist/signals.min',
+        'hasher': '../bower_components/hasher/dist/js/hasher.min',
+        'crossroads': '../bower_components/crossroads/dist/crossroads.min',
+        'text': '../bower_components/requirejs-text/text',
+        'handlebars': '../bower_components/handlebars/handlebars.min'
     },
 
     /***
@@ -32,23 +29,21 @@ requirejs.config({
      * See http://requirejs.org/docs/api.html#config-shim for more details.
      */
     shim: {
-        json3: {
-            exports: 'json3'
+        signals: {
+            exports: 'signals'
         },
-        text: {
-            exports: 'text'
+        hasher: {
+            deps: ['signals'],
+            exports: 'hasher'
         },
-        routie: {
-            exports: 'routie'
+        crossroads: {
+            deps: ['signals', 'hasher'],
+            exports: 'crossroads'
         },
         handlebars: {
             exports: 'Handlebars'
-        },
-        swag: {
-            deps: ['handlebars'],
-            exports: 'Swag'
         }
     }
 });
 
-require(['router/routes']);
+require(['apps/router/routes']);
